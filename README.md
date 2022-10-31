@@ -4,7 +4,9 @@ URL : [https://www.techinterviewhandbook.org/grind75](https://www.techinterviewh
 
 Profile : [https://leetcode.com/bahgahbah/](https://leetcode.com/bahgahbah/)
 
-<img src="images/leetcode_heatmap_1.png" width="600">
+![Leetcode Stats](https://leetcard.jacoblin.cool/bahgahbah?ext=heatmap)
+
+<!-- <img src="images/leetcode_heatmap_1.png" width="600"> -->
 
 ## Attempts
 
