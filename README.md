@@ -6,9 +6,9 @@ Profile : [https://leetcode.com/bahgahbah/](https://leetcode.com/bahgahbah/)
 
 ![Leetcode heatmap](images/leetcode_heatmap_1.png)
 
-## First Attempt
+## Attempts
 
-4th October - 31st October 2022
+1. 4th October - 31st October 2022
 
 ## Comments
 
