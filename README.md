@@ -65,5 +65,6 @@ Profile : [https://leetcode.com/bahgahbah/](https://leetcode.com/bahgahbah/)
     - Graphs
       - Everything is a graph
       - Based on the findings of Euler (pronounced oiler) bridge problem
+        - [Seven Bridges of Königsberg](https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg)
       - Dikstra's Shortest Path
         - has interesting properties (https://www.youtube.com/watch?v=pVfj6mxhdMw)[https://www.youtube.com/watch?v=pVfj6mxhdMw]
