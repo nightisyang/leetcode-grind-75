@@ -1,7 +1,8 @@
 # LEETCODE GRIND 75
 
 URL : [https://www.techinterviewhandbook.org/grind75](https://www.techinterviewhandbook.org/grind75)
-Profile [https://leetcode.com/bahgahbah/](https://leetcode.com/bahgahbah/)
+
+Profile : [https://leetcode.com/bahgahbah/](https://leetcode.com/bahgahbah/)
 
 ![Leetcode heatmap](images/leetcode_heatmap_1.png)
 
