@@ -1,6 +1,46 @@
 // https://leetcode.com/problems/01-matrix/
 // from solutions
 
+// from solutions
+// https://leetcode.com/problems/01-matrix/solutions/1369741/c-java-python-bfs-dp-solutions-with-picture-clean-concise-o-1-space/
+var updateMatrix = function (matrix) {
+  const m = matrix.length;
+  const n = matrix[0].length;
+  const dir = [0, 1, 0, -1, 0];
+
+  let q = [];
+
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      if (matrix[i][j] === 0) {
+        q.push([i, j]);
+      } else {
+        matrix[i][j] = -1;
+      }
+    }
+  }
+
+  while (q.length) {
+    const [r, c] = q.shift();
+    // console.log(q)
+
+    for (let i = 0; i < 4; i++) {
+      let nr = r + dir[i];
+      let nc = c + dir[i + 1];
+
+      if (nr < 0 || nr === m || nc < 0 || nc === n || matrix[nr][nc] !== -1) {
+        continue;
+      }
+
+      matrix[nr][nc] = matrix[r][c] + 1;
+      q.push([nr, nc]);
+    }
+    // console.log(matrix)
+  }
+
+  return matrix;
+};
+
 var updateMatrix = function (matrix) {
   // General approach is: Loop over the full matrix to find all zeroes first.
   // Add those to a queue and start a classic BFS, writing down a number +1

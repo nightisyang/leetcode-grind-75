@@ -4,92 +4,77 @@
  * @return {number}
  */
 var orangesRotting = function (grid) {
-  if (!grid || grid.length === 0) return -1;
-
-  for (let i = 0; i < grid.length; i++) {
-    for (let j = 0; j < grid[0].length; j++) {
-      if (grid[i][j] === 2) rotAdjacent(grid, i, j, 2);
-    }
-  }
-  // console.log(grid)
-
-  // minutes is offset, because rotten oranges have value of 2
-  // it's incremented in the recursion, the largest rotten orange is the last rotten
-  let minutes = 2;
-  for (const row of grid) {
-    for (const cell of row) {
-      if (cell === 1) return -1;
-      minutes = Math.max(minutes, cell);
-    }
+  if (!grid || grid.length === 0) {
+    return 0;
   }
 
-  return minutes - 2;
+  const row = grid.length;
+  const column = grid[0].length;
+  const queue = [];
+  let countFresh = 0;
+  let minutes = 0;
+  let dirs = [
+    [1, 0],
+    [-1, 0],
+    [0, 1],
+    [0, -1],
+  ];
+
+  // put the position of all rotten oranges in queue
+  // count the number of fresh oranges
+  for (let i = 0; i < row; i++) {
+    for (let j = 0; j < column; j++) {
+      if (grid[i][j] === 2) {
+        queue.push([i, j]);
+      }
+
+      if (grid[i][j] === 1) {
+        countFresh++;
+      }
+    }
+  }
+
+  // if count of fresh oranges is zero, return zero
+
+  if (countFresh === 0) {
+    return 0;
+  }
+
+  // bfs starting from initially rotten oranges
+  while (queue.length !== 0 && countFresh) {
+    minutes++;
+    let size = queue.length; // set the size before hand,
+    for (let i = 0; i < size; i++) {
+      // if i is limited by queue.length i.e. i < queue.length, queue.length will be vary dynamically
+      const point = queue.shift();
+
+      for (const dir of dirs) {
+        const x = point[0] + dir[0];
+        const y = point[1] + dir[1];
+
+        // set when to continue, out of bounds, already rotten or empty cell
+        if (
+          x < 0 ||
+          y < 0 ||
+          x >= row ||
+          y >= column ||
+          grid[x][y] === 2 ||
+          grid[x][y] === 0
+        ) {
+          continue;
+        }
+
+        // if code reaches here, orange is fresh, mark is as rotten
+        grid[x][y] = 2;
+
+        // book keeping, if not all fresh oranges are rotten, return -1
+        countFresh--;
+
+        // push this the coords of this newly rotten orange into queue to look for next fresh orange
+        queue.push([x, y]);
+      }
+    }
+  }
+  // count - 1 because minute is 0 based index
+  return countFresh === 0 ? minutes : -1;
 };
-
-function rotAdjacent(grid, i, j, minutes) {
-  // out of bounds and no oranges
-  if (
-    i < 0 ||
-    j < 0 ||
-    i >= grid.length ||
-    j >= grid[0].length ||
-    grid[i][j] === 0
-  ) {
-    return;
-  }
-
-  // this orange is already rotted by another rotten orange
-  // we have been here e.g. a seen arr, can't go backwards
-  // grid[j][j] < min, 2 as starting value ignores fresh oranges at the beginning, finds rotten as start
-  if (grid[i][j] > 1 && grid[i][j] < minutes) {
-    return;
-  }
-
-  // increments grid
-  grid[i][j] = minutes;
-  rotAdjacent(grid, i - 1, j, minutes + 1);
-  rotAdjacent(grid, i + 1, j, minutes + 1);
-  rotAdjacent(grid, i, j - 1, minutes + 1);
-  rotAdjacent(grid, i, j + 1, minutes + 1);
-}
-// from solutions - java
-// https://leetcode.com/problems/rotting-oranges/solutions/602284/java-dfs-beats-100/
-/*
-class Solution {
-    
-    public int orangesRotting(int[][] grid) {
-        if(grid == null || grid.length == 0) return -1;
-        
-        for(int i=0; i<grid.length; i++) {
-            for(int j=0; j<grid[0].length; j++) {
-                if(grid[i][j] == 2) rotAdjacent(grid, i, j, 2);
-            }
-        }
-        
-        int minutes = 2;
-        for(int[] row : grid) {
-            for(int cell : row) {
-                if(cell == 1) return -1;
-                minutes = Math.max(minutes, cell);
-            }
-        }
-        
-        return minutes - 2;
-    }
-    
-    private void rotAdjacent(int[][] grid, int i, int j, int minutes) {
-        if(i < 0 || i >= grid.length /* out of bounds 
-          || j < 0 || j >= grid[0].length  out of bounds 
-          || grid[i][j] == 0 /* empty cell 
-          || (1 < grid[i][j] && grid[i][j] < minutes) this orange is already rotten by another rotten orange 
-          ) return;
-        else {
-            grid[i][j] = minutes;
-            rotAdjacent(grid, i - 1, j, minutes + 1);
-            rotAdjacent(grid, i + 1, j, minutes + 1);
-            rotAdjacent(grid, i, j - 1, minutes + 1);
-            rotAdjacent(grid, i, j + 1, minutes + 1);
-        }
-    }
-}
-*/
