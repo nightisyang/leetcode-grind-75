@@ -1,4 +1,5 @@
 // https://leetcode.com/problems/invert-binary-tree/
+// dfs
 var invertTree = function (root) {
   function walk(node) {
     // base condition
@@ -19,5 +20,21 @@ var invertTree = function (root) {
 
   walk(root);
 
+  return root;
+};
+// bfs
+const invertTree = (root) => {
+  if (!root) return null;
+  let cur = [root];
+
+  while (cur.length) {
+    const next = [];
+    for (const node of cur) {
+      node.left && next.push(node.left);
+      node.right && next.push(node.right);
+      [node.left, node.right] = [node.right, node.left];
+    }
+    cur = next;
+  }
   return root;
 };
